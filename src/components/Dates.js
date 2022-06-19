@@ -1,44 +1,54 @@
 import React, { useState } from "react";
-import Title from "./Title";
+const dates = ["1", "2", "3", "noDrop"];
+const Dates = ({ date }) => {
+  const [noDrop, setNoDrop] = useState("");
+  const [dragData, setDragData] = useState({});
+  const initialItems = [{ id: 1, group: "1", value: "drag 1" }];
+  const [items, setItems] = useState(initialItems);
 
-const Dates = ({ data, card, moveCard }) => {
-    console.log(card);
-  const [isOver, setIsOver] = useState(false);
-console.log(isOver);
-  function handleDragOver(e) {
-    if (e.dataTransfer.types[0] === "text/plain") {
-      setIsOver(true);
-      e.preventDefault();
+  const handleDragEnter = (e, group) => {
+    if (group === "noDrop") {
+      setNoDrop("noDrop");
     }
-  }
+  };
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+  const handleDragLeave = (e) => {
+    setNoDrop("");
+  };
 
-  function handleDrop(e) {
-    const dataJSON = e.dataTransfer.getData("text/plain");
-    let data;
-    try {
-        data = JSON.parse(dataJSON);
-        // console.log("hello data",data);
-    } catch {}
-    if (data && data.type === "card") {
-        console.log("move data data111",data);
-      moveCard();
+  const handleDrop = (e, group) => {
+    setNoDrop("");
+    const selected = dragData.id;
+    if (group === "noDrop") {
+      console.log("nuh uh");
+    } else {
+      changeCategory(selected, group);
     }
-  }
+  };
+  const changeCategory = (itemId, group) => {
+    const newItems = [...items];
+    newItems[itemId - 1].group = group;
+    setItems([...newItems]);
+  };
+  const handleDragStart = (e, id, group) => {
+    setDragData({ id: id, initialGroup: group });
+  };
 
-  function handleDragLeave() {
-    setIsOver(false);
-  }
   return (
     <>
       <div
-        className="bg-secondary col p-4 m-2"
-        style={{ backgroundColor: isOver ? "#bbf" : "rgba(0,0,0,.12)" }}
+        // change styling if dragging into noDrop zone
+        className="col bg-secondary p-2 m-2"
+        // event handlers
+        onDragEnter={(e) => handleDragEnter(e, date)}
         onDragOver={handleDragOver}
-        onDrop={handleDrop}
         onDragLeave={handleDragLeave}
+        onDrop={(e) => handleDrop(e, date)}
+        key={date}
       >
-        <h4>{data}</h4>
-        <p>{card ? <Title /> : "Box-1"} gg</p>
+        <h5> {date}</h5>
       </div>
     </>
   );
