@@ -1,13 +1,13 @@
 import "./App.css";
-import Calender from "./components/Calender";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Testing from "./components/Testing";
+import Events from "./components/EventsCreate/Events";
 
 function App() {
  
   return (
     <div className="container">
-      <Calender />
+      <Events/>
+      {/* <Calender /> */}
       {/* <Testing/> */}
     </div>
   );

@@ -7,16 +7,13 @@ const dates = ["1", "2", "3", "4", "5", "6", "noDrop"];
 const Calender = () => {
   const [title, setTitle] = useState("");
   const getYear = new Date().getFullYear();
-  const [index, setIndex] = useState(1);
+ 
   const initialItems = [{ id: 1, group: "1", value: "drag 1" }];
   const [noDrop, setNoDrop] = useState("");
   const [dragData, setDragData] = useState({});
 
   const [items, setItems] = useState(initialItems);
-  function moveCard(i) {
-    setIndex(i);
-  }
-
+ 
   const handleForm = (e) => {
     e.preventDefault();
     const title = e.target.title.value;
@@ -30,7 +27,7 @@ const Calender = () => {
     // setTitle(title);
     // e.target.reset();
   };
-  console.log("length", items);
+  console.log("Items", items);
 
   const handleDragEnter = (e, group) => {
     console.log("drag enter", group);
@@ -49,18 +46,12 @@ const Calender = () => {
     console.log("drag leave");
     setNoDrop("");
   };
+
+  // drop here after mouse leave
   const handleDrop = (e, group) => {
     const daa = items.filter((d) => d.group !== group);
-    console.log("many group", daa);
+    console.log(e.target.innerText,"many group", group);
 
-
-    // console.log("drop here",group);
-    /* for (const iterator of items) {
-      if (iterator.value.length) {
-      }
-
-      console.log(iterator, "what is it", e.target.innerText);
-    } */
 
     setNoDrop("");
     const selected = dragData.id;
@@ -70,11 +61,63 @@ const Calender = () => {
     } else {
       changeCategory(selected, group);
     }
+
+
+ /*    dates.map((group) => (
+      // console.log("hey group",group)
+       <div
+        // change styling if dragging into noDrop zone
+        className={`col bg-secondary p-2 m-2 ${
+          group === "noDrop" && noDrop === "noDrop" ? noDrop : "group"
+        }`}
+        // event handlers
+        onDragEnter={(e) => handleDragEnter(e, group)}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={(e) => handleDrop(e, group)}
+        key={group}
+      >
+        <p className="text-bold">{group}</p>
+       
+      </div>
+    ))
+ */
+    items
+      .filter((item) => item.group === group)
+      .map((item) => (
+        <div
+          key={item.id}
+          id={item.id}
+          // change style if dragged over noDrop
+          className={`${
+            group === "noDrop" && noDrop === "noDrop"
+              ? "notAllowed"
+              : "item"
+          }`}
+          // MAKES THE ITEM DRAGGABLE!!!!
+          draggable
+          // event handler
+          onDragStart={(e) => handleDragStart(e, item.id, group)}
+
+          onDragEnter={(e) => handleDragEnter(e, group)}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={(e) => handleDrop(e, group)}
+        >
+          <p className="text-danger">{item.value}</p>
+        </div>
+      ))
+
+
+
+
+
   };
   const changeCategory = (itemId, group) => {
     const newItems = [...items];
     newItems[itemId - 1].group = group;
     setItems([...newItems]);
+    console.log("how did get your first job",items);
   };
   const handleDragStart = (e, id, group) => {
     setDragData({ id: id, initialGroup: group });
@@ -128,28 +171,7 @@ const Calender = () => {
                 key={group}
               >
                 <p className="text-bold">{group}</p>
-                <div>
-                  {items
-                    .filter((item) => item.group === group)
-                    .map((item) => (
-                      <div
-                        key={item.id}
-                        id={item.id}
-                        // change style if dragged over noDrop
-                        className={`${
-                          group === "noDrop" && noDrop === "noDrop"
-                            ? "notAllowed"
-                            : "item"
-                        }`}
-                        // MAKES THE ITEM DRAGGABLE!!!!
-                        draggable
-                        // event handler
-                        onDragStart={(e) => handleDragStart(e, item.id, group)}
-                      >
-                        <p className="text-danger">{item.value}</p>
-                      </div>
-                    ))}
-                </div>
+               
               </div>
             ))}
           </section>
