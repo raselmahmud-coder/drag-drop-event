@@ -134,19 +134,6 @@ for (const item of items) {
       e?.target?.appendChild(document.getElementById(data));
       console.log(e.target.className);
     }
-
-    // const h1 = document.getElementsByClassName("unselectable");
-    // for (const iterator of h1)  {
-    //   console.log("what is drop", iterator.getElementsByTagName("span").length);
-    //   if (iterator.getElementsByTagName("span").length === 1) {
-    //     console.log("https://", iterator)
-    //     // return false
-    //   }
-    //   else {
-
-    //   }
-
-    // }
   }
 
   function dragEnd(e) {
