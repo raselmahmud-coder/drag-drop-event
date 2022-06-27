@@ -1,6 +1,7 @@
 import React from "react";
 import "./Foods.css";
-import { AiOutlineHeart, AiFillStar } from "react-icons/ai";
+import { AiOutlineHeart, AiFillStar, AiFillHeart } from "react-icons/ai";
+import { BiTime, BiFilter } from "react-icons/bi";
 
 const Foods = () => {
   return (
@@ -12,7 +13,7 @@ const Foods = () => {
       </div>
       <div className="col-md-7">
         <div className="my-5" style={{ textAlign: "right" }}>
-          <p className="mb-5">Filter</p>
+          <p className="mb-5"><BiFilter/>Filter</p>
           <label for="pet-select">Shorted by: </label>{" "}
           <select
             name="selection"
@@ -34,12 +35,13 @@ const Foods = () => {
               <p className="d-flex align-items-center bg-black text-white px-2 rounded-4">
                 <AiFillStar className="text-warning" /> 4.3
               </p>
-              <p className="px-1 rounded-circle bg-white">
+              <p className="px-1 rounded-circle bg-white d-flex align-items-center ">
                 <AiOutlineHeart />
               </p>
             </div>
             <div className="d-flex justify-content-center my-4">
               <img
+                style={{ width: "9vw" }}
                 className="rounded-circle"
                 alt="Bootstrap Preview"
                 src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg"
@@ -60,12 +62,13 @@ const Foods = () => {
               <p className="d-flex align-items-center bg-black text-white px-2 rounded-4">
                 <AiFillStar className="text-warning" /> 4.3
               </p>
-              <p className="px-1 rounded-circle bg-white">
-                <AiOutlineHeart />
+              <p className="px-1 rounded-circle bg-white d-flex align-items-center">
+                <AiFillHeart className="text-danger"/>
               </p>
             </div>
             <div className="d-flex justify-content-center my-4">
               <img
+                style={{ width: "9vw" }}
                 className="rounded-circle"
                 alt="Bootstrap Preview"
                 src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg"
@@ -86,12 +89,13 @@ const Foods = () => {
               <p className="d-flex align-items-center bg-black text-white px-2 rounded-4">
                 <AiFillStar className="text-warning" /> 4.3
               </p>
-              <p className="px-1 rounded-circle bg-white">
+              <p className="px-1 rounded-circle bg-white d-flex align-items-center ">
                 <AiOutlineHeart />
               </p>
             </div>
             <div className="d-flex justify-content-center my-4">
               <img
+                style={{ width: "9vw" }}
                 className="rounded-circle"
                 alt="Bootstrap Preview"
                 src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg"
@@ -111,7 +115,10 @@ const Foods = () => {
           <h4>My Order </h4>
           <span className="ms-4">Edit</span>
         </div>
-        <h6 className="my-2">{new Date().toLocaleTimeString()}</h6>
+        <div className="d-flex align-items-center">
+          <BiTime />
+          <h6 className="my-2 ms-2">{new Date().toLocaleTimeString()}</h6>
+        </div>
         <div className="row my-4">
           <div className="d-flex justify-content-between">
             <div className="">
